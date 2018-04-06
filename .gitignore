@@ -1,0 +1,5 @@
+venv
+__pycache__
+package.zip
+docs
+.DS_Store
