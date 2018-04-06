@@ -23,7 +23,7 @@ datafile_url=\"{}\"
 """.format(datafile, datafile_url)
     app_source_code_fh.write(code)
 except:
-    print("Unable to write to app.py file")
+    print("Unable to write to datafile.py file")
 finally:
     app_source_code_fh.close()
     
