@@ -1,8 +1,6 @@
 # Lambda Python Bucketer 
 > Using Optimizely Python SDK v1.4
 
-### What does it do?
-
 The Python bucketer is a lambda function exposed via an https AWS API Gateway that takes an array of parameters and returns the variation_key that the visitor was bucketed into. 
 
 ```
@@ -21,6 +19,17 @@ https://aws-api-gateway-address.us-east-1.amazonaws.com/prod/bucketer?
 | u      | user_id  | Pass the userId in as a string. If no userId is provided, the userId will default to the visitors IP address                      | no      |    IP address    |
 | a      | attributes  | A list of user attributes used for `activate`. These will be passed into the activate call, and can be used to qualify users for Audience and for Results segmentation.                      | no      |    {}    |
 | debug      | debug mode  | Enabled debug mode. The response will show additional data, including accountId, projectId, and verbose datafile characteristics                      | no      |    False    |
+
+### Datafile Management
+
+The Optimizely Full SDKs require the consumption of the project's [JSON datafile](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=python#datafile) in order to be informed of the experiment settings configured within Optimizely. 
+
+Running the `webhook.py` script will fetch the datafile contents and store them within `datafile.py`. The core Lambda function file, `app.py` imports `datafile.py` and uses its contents to instantiate the `Optimizely Client`.
+
+In order to inform `webhook.py` where the datafile lives, you must set your datafile url as an environment variable:
+```
+$ export DATAFILE_URL="https://cdn.optimizely.com/PATH/TO/FULLSTACK/DATAFILE.json"
+```
 
 ### Updating your Lambda function code
 
