@@ -3,12 +3,35 @@
 
 The Python bucketer is a lambda function exposed via an https AWS API Gateway that takes an array of parameters and returns the variation_key that the visitor was bucketed into. 
 
+_input_
 ```
-https://aws-api-gateway-address.us-east-1.amazonaws.com/prod/bucketer?    
+https://aws-api-gateway-address.amazonaws.com/prod/bucketer?  
   e=checkout_flow_experiment
   &u=cooper34523569
-  &a=tier:"platinum",zip:07020
+  &a=tier:%22platinum%22,member_since_days:56
   &debug=1
+```
+
+_response_
+```
+{
+  "variation": "one_step_checkout",
+  "user": "cooper34523569",
+  "experiment": "checkout_flow_experiment",
+  "debug": {
+    "project_id": "10000000000",
+    "account_id": "80000000000",
+    "time": "2018-04-09 17:06:02.698754",
+    "datafile": {
+      "url": "https://cdn.optimizely.com/PATH/TO/DATAFILE.json",
+      "revision": "22"
+    },
+    "user_attributes": {
+      "tier": "platinum",
+      "member_since_days": 56
+    }
+  }
+}
 ```
 
 ### Bucketing Parameters
