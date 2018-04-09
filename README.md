@@ -24,12 +24,19 @@ https://aws-api-gateway-address.us-east-1.amazonaws.com/prod/bucketer?
 
 The Optimizely Full SDKs require the consumption of the project's [JSON datafile](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=python#datafile) in order to be informed of the experiment settings configured within Optimizely. 
 
-Running the `webhook.py` script will fetch the datafile contents and store them within `datafile.py`. The core Lambda function file, `app.py` imports `datafile.py` and uses its contents to instantiate the `Optimizely Client`.
+**Current state**
+
+Running the `webhook.py` script will fetch the datafile contents and store them within `datafile.py`. The core Lambda function file, `app.py` imports `datafile.py` and uses its contents to instantiate the `Optimizely Client`. After you've updated the datafile contents using the webhook, you'll need to manually push the code package up to Lambda. 
 
 In order to inform `webhook.py` where the datafile lives, you must set your datafile url as an environment variable:
 ```
 $ export DATAFILE_URL="https://cdn.optimizely.com/PATH/TO/FULLSTACK/DATAFILE.json"
 ```
+**Future state**
+
+Future versions of this tool will do one of the following
+* Include an additional Lambda function that will serve as a webhook that will fetch a fresh copy of the datafile, and update the code package of the Bucketer lambda function.
+* Include an additional Lambda function that will serve as a webhook that will fetch a fresh copy of the datafile and push it into an S3 bucket. The Bucketer lambda function would then have to access the datafile contents via a `Boto` S3 connection, which may not be performant.
 
 ### Updating your Lambda function code
 
