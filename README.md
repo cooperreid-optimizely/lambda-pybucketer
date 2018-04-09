@@ -8,7 +8,7 @@ _input_
 https://aws-api-gateway-address.amazonaws.com/prod/bucketer?  
   e=checkout_flow_experiment
   &u=cooper34523569
-  &a=tier:%22platinum%22,member_since_days:56
+  &a=tier:"platinum",member_since_days:56
   &debug=1
 ```
 
